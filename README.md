@@ -1,16 +1,11 @@
-# imagesearchgallery
+# Image Search Gallery
 
-search for images and save them in a list
+Search for images and bookmark both the image and search term.
 
-## Getting Started
+Easy way to keep track of AV actresses I like :D
 
-This project is a starting point for a Flutter application.
+Couldn't find a similar app on the marketplace so scrapped up a MVP for personal use.
 
-A few resources to get you started if this is your first Flutter project:
+Uses Google Custom Search. You will need an API key to get this running locally.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+No intentions of publishing on the app store as it would require sharing my API quota.
