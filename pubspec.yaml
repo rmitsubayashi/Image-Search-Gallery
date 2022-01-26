@@ -19,6 +19,7 @@ dependencies:
   json_serializable: ^6.0.1
   json_annotation: ^4.3.0
   dio: ^4.0.1
+  dio_cache_interceptor: ^3.2.2
   transparent_image: ^2.0.0
   cached_network_image: ^3.2.0
   flutter_staggered_grid_view: ^0.4.1
