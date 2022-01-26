@@ -40,10 +40,4 @@ class GoogleCustomSearchDataSource {
   Future<String> getAPIKey() async {
     return await rootBundle.loadString('assets/secret.txt');
   }
-
-  Future<List<int>> downloadImageAsBytes(String link) async {
-    final response = await Dio().get<ResponseBody>(link,
-        options: Options(responseType: ResponseType.bytes));
-    return response.data as List<int>;
-  }
 }

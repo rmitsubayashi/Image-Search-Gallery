@@ -21,16 +21,11 @@ SavedImage _$SavedImageFromJson(Map<String, dynamic> json) {
 class _$SavedImageTearOff {
   const _$SavedImageTearOff();
 
-  _SavedImage call(
-      int? id,
-      String url,
-      @JsonKey(name: "local_path") String localPath,
-      String label,
+  _SavedImage call(int? id, String url, String label,
       @JsonKey(name: "created_at") String createdAt) {
     return _SavedImage(
       id,
       url,
-      localPath,
       label,
       createdAt,
     );
@@ -48,8 +43,6 @@ const $SavedImage = _$SavedImageTearOff();
 mixin _$SavedImage {
   int? get id => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
-  @JsonKey(name: "local_path")
-  String get localPath => throw _privateConstructorUsedError;
   String get label => throw _privateConstructorUsedError;
   @JsonKey(name: "created_at")
   String get createdAt => throw _privateConstructorUsedError;
@@ -68,7 +61,6 @@ abstract class $SavedImageCopyWith<$Res> {
   $Res call(
       {int? id,
       String url,
-      @JsonKey(name: "local_path") String localPath,
       String label,
       @JsonKey(name: "created_at") String createdAt});
 }
@@ -85,7 +77,6 @@ class _$SavedImageCopyWithImpl<$Res> implements $SavedImageCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? url = freezed,
-    Object? localPath = freezed,
     Object? label = freezed,
     Object? createdAt = freezed,
   }) {
@@ -97,10 +88,6 @@ class _$SavedImageCopyWithImpl<$Res> implements $SavedImageCopyWith<$Res> {
       url: url == freezed
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
-              as String,
-      localPath: localPath == freezed
-          ? _value.localPath
-          : localPath // ignore: cast_nullable_to_non_nullable
               as String,
       label: label == freezed
           ? _value.label
@@ -123,7 +110,6 @@ abstract class _$SavedImageCopyWith<$Res> implements $SavedImageCopyWith<$Res> {
   $Res call(
       {int? id,
       String url,
-      @JsonKey(name: "local_path") String localPath,
       String label,
       @JsonKey(name: "created_at") String createdAt});
 }
@@ -142,7 +128,6 @@ class __$SavedImageCopyWithImpl<$Res> extends _$SavedImageCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? url = freezed,
-    Object? localPath = freezed,
     Object? label = freezed,
     Object? createdAt = freezed,
   }) {
@@ -154,10 +139,6 @@ class __$SavedImageCopyWithImpl<$Res> extends _$SavedImageCopyWithImpl<$Res>
       url == freezed
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
-              as String,
-      localPath == freezed
-          ? _value.localPath
-          : localPath // ignore: cast_nullable_to_non_nullable
               as String,
       label == freezed
           ? _value.label
@@ -174,11 +155,7 @@ class __$SavedImageCopyWithImpl<$Res> extends _$SavedImageCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_SavedImage implements _SavedImage {
-  const _$_SavedImage(
-      this.id,
-      this.url,
-      @JsonKey(name: "local_path") this.localPath,
-      this.label,
+  const _$_SavedImage(this.id, this.url, this.label,
       @JsonKey(name: "created_at") this.createdAt);
 
   factory _$_SavedImage.fromJson(Map<String, dynamic> json) =>
@@ -189,9 +166,6 @@ class _$_SavedImage implements _SavedImage {
   @override
   final String url;
   @override
-  @JsonKey(name: "local_path")
-  final String localPath;
-  @override
   final String label;
   @override
   @JsonKey(name: "created_at")
@@ -199,7 +173,7 @@ class _$_SavedImage implements _SavedImage {
 
   @override
   String toString() {
-    return 'SavedImage(id: $id, url: $url, localPath: $localPath, label: $label, createdAt: $createdAt)';
+    return 'SavedImage(id: $id, url: $url, label: $label, createdAt: $createdAt)';
   }
 
   @override
@@ -209,16 +183,13 @@ class _$_SavedImage implements _SavedImage {
             other is _SavedImage &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.url, url) || other.url == url) &&
-            (identical(other.localPath, localPath) ||
-                other.localPath == localPath) &&
             (identical(other.label, label) || other.label == label) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, url, localPath, label, createdAt);
+  int get hashCode => Object.hash(runtimeType, id, url, label, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -232,11 +203,7 @@ class _$_SavedImage implements _SavedImage {
 }
 
 abstract class _SavedImage implements SavedImage {
-  const factory _SavedImage(
-      int? id,
-      String url,
-      @JsonKey(name: "local_path") String localPath,
-      String label,
+  const factory _SavedImage(int? id, String url, String label,
       @JsonKey(name: "created_at") String createdAt) = _$_SavedImage;
 
   factory _SavedImage.fromJson(Map<String, dynamic> json) =
@@ -246,9 +213,6 @@ abstract class _SavedImage implements SavedImage {
   int? get id;
   @override
   String get url;
-  @override
-  @JsonKey(name: "local_path")
-  String get localPath;
   @override
   String get label;
   @override

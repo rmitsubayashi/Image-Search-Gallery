@@ -8,7 +8,6 @@ class SavedImage with _$SavedImage {
   const factory SavedImage(
     int? id,
     String url,
-    @JsonKey(name: "local_path") String localPath,
     String label,
     @JsonKey(name: "created_at") String createdAt
   ) = _SavedImage;
