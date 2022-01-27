@@ -37,6 +37,10 @@ class SavedImageNotifier extends StateNotifier<SavedImage?> {
   Future<bool> delete(SavedImage image) async {
     final result = await ref.read(savedImagesRepositoryProvider).delete(image);
     await CachedNetworkImage.evictFromCache(image.url);
+    final newlyAddedImage = ref.read(newlyAddedImageProvider);
+    if (newlyAddedImage?.id == image.id) {
+      ref.read(newlyAddedImageProvider.notifier).state = null;
+    }
     ref.refresh(savedImagesProvider);
     return result;
   }
