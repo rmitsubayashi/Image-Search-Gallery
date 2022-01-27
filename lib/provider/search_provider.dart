@@ -2,7 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:imagesearchgallery/entity/image_search_result.dart';
 import 'package:imagesearchgallery/repository/search_repository.dart';
 
-final searchResultLinkProvider = FutureProvider<List<String>?>((ref) async {
+final searchResultLinkProvider = FutureProvider.autoDispose<List<String>?>((ref) async {
   final searchTerm = ref.read(searchTermProvider);
   if (searchTerm == "") return null;
 
@@ -33,12 +33,12 @@ final searchResultLinkProvider = FutureProvider<List<String>?>((ref) async {
   return newLinks;
 });
 
-final _prevSearchResultProvider = StateProvider<_CurrentSearchResult>(
+final _prevSearchResultProvider = StateProvider.autoDispose<_CurrentSearchResult>(
     (ref) => _CurrentSearchResult("", List.empty()));
 
-final prevLinksCacheProvider = StateProvider<List<String>?>((ref) => null);
+final prevLinksCacheProvider = StateProvider.autoDispose<List<String>?>((ref) => null);
 
-final searchTermProvider = StateProvider<String>((ref) => "");
+final searchTermProvider = StateProvider.autoDispose<String>((ref) => "");
 
 final searchStateNotifier =
     Provider.autoDispose((ref) => SearchStateNotifier(ref));
