@@ -2,43 +2,16 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:imagesearchgallery/entity/image_search_result.dart';
 import 'package:imagesearchgallery/repository/search_repository.dart';
 
-final searchResultLinkProvider = FutureProvider.autoDispose<List<String>?>((ref) async {
-  final searchTerm = ref.read(searchTermProvider);
-  if (searchTerm == "") return null;
-
-  final prevResult = ref.read(_prevSearchResultProvider);
-
-  List<String> newLinks;
-  if (prevResult.searchTerm != searchTerm) {
-    ref.read(prevLinksCacheProvider.notifier).state = null;
-    final newResult = await ref.read(searchRepository).search(searchTerm, 0);
-    ref.read(_prevSearchResultProvider.notifier).state =
-        _CurrentSearchResult(searchTerm, [newResult]);
-    newLinks = newResult.links;
-  } else {
-    // loading more
-    final nextIndex = prevResult.results.last.nextStartingIndex;
-    if (nextIndex == -1) {
-      return prevResult.results.map((e) => e.links).expand((e) => e).toList();
-    }
-    final loadMoreResult =
-        await ref.read(searchRepository).search(searchTerm, nextIndex);
-    final newResult = prevResult.results;
-    newResult.add(loadMoreResult);
-    ref.read(_prevSearchResultProvider.notifier).state =
-        _CurrentSearchResult(searchTerm, newResult);
-    newLinks = newResult.map((e) => e.links).expand((e) => e).toList();
-  }
-  ref.read(prevLinksCacheProvider.notifier).state = newLinks;
-  return newLinks;
+final searchResultLinkProvider = StateProvider<List<String>?>((ref) {
+  return ref.watch(_prevSearchResultProvider).results.map((e) => e.links).expand((e) => e).toList();
 });
 
-final _prevSearchResultProvider = StateProvider.autoDispose<_CurrentSearchResult>(
+final searchLoadingStateProvider = StateProvider<bool>((ref) => false);
+
+final _prevSearchResultProvider = StateProvider<_CurrentSearchResult>(
     (ref) => _CurrentSearchResult("", List.empty()));
 
-final prevLinksCacheProvider = StateProvider.autoDispose<List<String>?>((ref) => null);
-
-final searchTermProvider = StateProvider.autoDispose<String>((ref) => "");
+final searchTermProvider = StateProvider<String>((ref) => "");
 
 final searchStateNotifier =
     Provider.autoDispose((ref) => SearchStateNotifier(ref));
@@ -50,11 +23,36 @@ class SearchStateNotifier extends StateNotifier<String> {
 
   Future<void> search(String searchTerm) async {
     ref.read(searchTermProvider.notifier).state = searchTerm;
-    ref.refresh(searchResultLinkProvider);
+    if (searchTerm == "") {
+      ref.read(_prevSearchResultProvider.notifier).state = _CurrentSearchResult("", List.empty());
+      return;
+    }
+
+    final prevResult = ref.read(_prevSearchResultProvider);
+    if (prevResult.searchTerm != searchTerm) {
+      ref.read(searchLoadingStateProvider.notifier).state = true;
+      final newResult = await ref.read(searchRepository).search(searchTerm, 0);
+      ref.read(searchLoadingStateProvider.notifier).state = false;
+      ref.read(_prevSearchResultProvider.notifier).state =
+          _CurrentSearchResult(searchTerm, [newResult]);
+    }
+    // ref.refresh(searchResultLinkProvider);
   }
 
   Future<void> loadMore() async {
-    ref.refresh(searchResultLinkProvider);
+    final prevResult = ref.read(_prevSearchResultProvider);
+    final nextIndex = prevResult.results.last.nextStartingIndex;
+    if (nextIndex == -1) {
+      return;
+    }
+    final searchTerm = ref.read(searchTermProvider);
+    ref.read(searchLoadingStateProvider.notifier).state = true;
+    final loadMoreResult = await ref.read(searchRepository).search(searchTerm, nextIndex);
+    ref.read(searchLoadingStateProvider.notifier).state = false;
+    final newResult = prevResult.results;
+    newResult.add(loadMoreResult);
+    ref.read(_prevSearchResultProvider.notifier).state =
+        _CurrentSearchResult(searchTerm, newResult);
   }
 }
 

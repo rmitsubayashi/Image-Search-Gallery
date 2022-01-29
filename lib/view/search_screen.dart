@@ -11,93 +11,93 @@ class SearchScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchResult = ref.watch(searchResultLinkProvider);
     final searchTerm = ref.watch(searchTermProvider);
+    final searchLoadingState = ref.watch(searchLoadingStateProvider);
     final _textFieldController = TextEditingController(text: searchTerm);
     final _scrollController = ScrollController();
     _scrollController.addListener(() {
       if (_scrollController.offset >=
-          _scrollController.position.maxScrollExtent &&
+              _scrollController.position.maxScrollExtent &&
           !_scrollController.position.outOfRange) {
         ref.read(searchStateNotifier).loadMore();
       }
     });
     return Scaffold(
         appBar: AppBar(
-          // The search area here
+            // The search area here
             title: Container(
-              width: double.infinity,
-              height: 40,
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(5)),
-              child: Center(
-                child: TextField(
-                  controller: _textFieldController,
-                  decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.search),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () {
-                          _textFieldController.clear();
-                          FocusManager.instance.primaryFocus?.unfocus();
-                        },
-                      ),
-                      hintText: 'Search...',
-                      border: InputBorder.none),
-                  onSubmitted: (searchTerm) {
-                    ref.read(searchStateNotifier).search(searchTerm);
-                  },
-                  textInputAction: TextInputAction.search,
-                ),
-              ),
-            )),
-        body: searchResult.when(
-          data: (links) =>
-          links == null
-              ? const Center()
-              : StaggeredGridView.countBuilder(
-            controller: _scrollController,
-            crossAxisCount: 4,
-            itemCount: links.length,
-            itemBuilder: (_, index) {
-              return InkWell(
-                child: Hero(
-                    tag: "tag_${links[index]}",
-                    child: FadeInImage.memoryNetwork(
-                      placeholder: kTransparentImage,
-                      image: links[index],
-                      fit: BoxFit.scaleDown,
-                    )),
-                onTap: () {
-                  ref.read(selectSearchResultStateNotifier).select(
-                      SelectedSearchResult(
-                          searchTerm: searchTerm,
-                          url: links[index]));
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              SelectedSearchResultScreen()));
-                },
-              );
-            },
-            staggeredTileBuilder: (int index) =>
-            const StaggeredTile.fit(2),
-            mainAxisSpacing: 2,
-            crossAxisSpacing: 2,
+          width: double.infinity,
+          height: 40,
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(5)),
+          child: Center(
+            child: TextField(
+              controller: _textFieldController,
+              decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.clear),
+                    onPressed: () {
+                      _textFieldController.clear();
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    },
+                  ),
+                  hintText: 'Search...',
+                  border: InputBorder.none),
+              onSubmitted: (searchTerm) {
+                ref.read(searchStateNotifier).search(searchTerm);
+              },
+              textInputAction: TextInputAction.search,
+            ),
           ),
-          error: (err, stack) => const Center(),
-          loading: () {
-            final cachedLinks = ref.read(prevLinksCacheProvider);
-            if (cachedLinks == null) {
-              return const Center(child: CircularProgressIndicator());
-            } else {
-              return searchResultView(
-                  _scrollController, cachedLinks, context, ref, searchTerm);
-            }
-          }
-    ));
+        )),
+        body: Stack(
+          children: [
+            searchResult == null
+                ? const Center()
+                : StaggeredGridView.countBuilder(
+                    controller: _scrollController,
+                    crossAxisCount: 4,
+                    itemCount: searchResult.length,
+                    itemBuilder: (_, index) {
+                      return InkWell(
+                        child: Hero(
+                            tag: "tag_${searchResult[index]}",
+                            child: FadeInImage.memoryNetwork(
+                              placeholder: kTransparentImage,
+                              image: searchResult[index],
+                              fit: BoxFit.scaleDown,
+                            )),
+                        onTap: () {
+                          ref.read(selectSearchResultStateNotifier).select(
+                              SelectedSearchResult(
+                                  searchTerm: searchTerm,
+                                  url: searchResult[index]));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      SelectedSearchResultScreen()));
+                        },
+                      );
+                    },
+                    staggeredTileBuilder: (int index) =>
+                        const StaggeredTile.fit(2),
+                    mainAxisSpacing: 2,
+                    crossAxisSpacing: 2,
+                  ),
+            searchLoadingState
+                ? const Center(child: CircularProgressIndicator())
+                : const Center()
+          ],
+        ));
   }
 
-  StaggeredGridView searchResultView(ScrollController controller, List<String> links, BuildContext context, WidgetRef ref, String searchTerm) {
+  StaggeredGridView searchResultView(
+      ScrollController controller,
+      List<String> links,
+      BuildContext context,
+      WidgetRef ref,
+      String searchTerm) {
     return StaggeredGridView.countBuilder(
       controller: controller,
       crossAxisCount: 4,
@@ -114,18 +114,15 @@ class SearchScreen extends HookConsumerWidget {
           onTap: () {
             ref.read(selectSearchResultStateNotifier).select(
                 SelectedSearchResult(
-                    searchTerm: searchTerm,
-                    url: links[index]));
+                    searchTerm: searchTerm, url: links[index]));
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        SelectedSearchResultScreen()));
+                    builder: (context) => SelectedSearchResultScreen()));
           },
         );
       },
-      staggeredTileBuilder: (int index) =>
-      const StaggeredTile.fit(2),
+      staggeredTileBuilder: (int index) => const StaggeredTile.fit(2),
       mainAxisSpacing: 2,
       crossAxisSpacing: 2,
     );
