@@ -21,8 +21,7 @@ class SavedImagesScreen extends HookConsumerWidget {
         body: savedImages.when(
             error: (err, stack) => const Center(),
             loading: () => const Center(),
-            data: (images) => GestureDetector(
-                    child: StaggeredGridView.countBuilder(
+            data: (images) => StaggeredGridView.countBuilder(
                   crossAxisCount: 4,
                   itemCount: images.length,
                   itemBuilder: (_, index) {
@@ -77,6 +76,6 @@ class SavedImagesScreen extends HookConsumerWidget {
                       const StaggeredTile.fit(2),
                   mainAxisSpacing: 8,
                   crossAxisSpacing: 0,
-                ))));
+                )));
   }
 }
