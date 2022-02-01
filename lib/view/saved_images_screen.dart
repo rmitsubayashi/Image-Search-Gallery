@@ -26,8 +26,8 @@ class SavedImagesScreen extends HookConsumerWidget {
                   crossAxisCount: 4,
                   itemCount: images.length,
                   itemBuilder: (_, index) {
-                    return InkWell(
-                      child: Column(children: [
+                    return Stack(children: [
+                      Column(children: [
                         CachedNetworkImage(
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(
@@ -37,29 +37,41 @@ class SavedImagesScreen extends HookConsumerWidget {
                         ),
                         Text(images[index].label)
                       ]),
-                      onLongPress: () {
-                        showMenu(
-                            context: context,
-                            // top right
-                            position: const RelativeRect.fromLTRB(0, 0, -1, 0),
-                            items: <PopupMenuEntry>[
-                              PopupMenuItem(
-                                  child: Row(
-                                children: <Widget>[
-                                  Text("Delete '${images[index].label}'")
-                                ],
-                              ), onTap: () async {
-                                    final savedImageNotifier = ref.read(savedImageNotifierProvider);
-                                    final success = await savedImageNotifier.delete(images[index]);
-                                    if (success) {
-                                      Fluttertoast.showToast(msg: "Deleted!");
-                                    } else {
-                                      Fluttertoast.showToast(msg: "Failed");
-                                    }
-                              },)
-                            ]);
-                      },
-                    );
+                      Positioned.fill(
+                          child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(onLongPress: () {
+                                showMenu(
+                                    context: context,
+                                    // top right
+                                    position: const RelativeRect.fromLTRB(
+                                        0, 0, -1, 0),
+                                    items: <PopupMenuEntry>[
+                                      PopupMenuItem(
+                                        child: Row(
+                                          children: <Widget>[
+                                            Text(
+                                                "Delete '${images[index].label}'")
+                                          ],
+                                        ),
+                                        onTap: () async {
+                                          final savedImageNotifier = ref
+                                              .read(savedImageNotifierProvider);
+                                          final success =
+                                              await savedImageNotifier
+                                                  .delete(images[index]);
+                                          if (success) {
+                                            Fluttertoast.showToast(
+                                                msg: "Deleted!");
+                                          } else {
+                                            Fluttertoast.showToast(
+                                                msg: "Failed");
+                                          }
+                                        },
+                                      )
+                                    ]);
+                              })))
+                    ]);
                   },
                   staggeredTileBuilder: (int index) =>
                       const StaggeredTile.fit(2),
