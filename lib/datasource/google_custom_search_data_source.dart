@@ -28,8 +28,8 @@ class GoogleCustomSearchDataSource {
               '&searchType=image');
       final responseClass = googleCustomSearchResponseFromJson(
           response.toString());
-      final urls = responseClass.items.map((e) => e.link).toList();
-      final next = responseClass.queries.nextPage[0].startIndex;
+      final urls = responseClass.items?.map((e) => e.link).toList() ?? List.empty();
+      final next = responseClass.queries.nextPage?[0].startIndex ?? -1;
       return ImageSearchResult(urls, next);
     } catch(error) {
       // throws null -> string conversion exception

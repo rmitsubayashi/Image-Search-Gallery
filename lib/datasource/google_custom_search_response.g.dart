@@ -10,13 +10,11 @@ _$_GoogleCustomSearchResponse _$$_GoogleCustomSearchResponseFromJson(
         Map<String, dynamic> json) =>
     _$_GoogleCustomSearchResponse(
       kind: json['kind'] as String,
-      url: Url.fromJson(json['url'] as Map<String, dynamic>),
       queries: Queries.fromJson(json['queries'] as Map<String, dynamic>),
-      context: Context.fromJson(json['context'] as Map<String, dynamic>),
       searchInformation: SearchInformation.fromJson(
           json['searchInformation'] as Map<String, dynamic>),
-      items: (json['items'] as List<dynamic>)
-          .map((e) => Item.fromJson(e as Map<String, dynamic>))
+      items: (json['items'] as List<dynamic>?)
+          ?.map((e) => Item.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -24,20 +22,9 @@ Map<String, dynamic> _$$_GoogleCustomSearchResponseToJson(
         _$_GoogleCustomSearchResponse instance) =>
     <String, dynamic>{
       'kind': instance.kind,
-      'url': instance.url,
       'queries': instance.queries,
-      'context': instance.context,
       'searchInformation': instance.searchInformation,
       'items': instance.items,
-    };
-
-_$_Context _$$_ContextFromJson(Map<String, dynamic> json) => _$_Context(
-      title: json['title'] as String,
-    );
-
-Map<String, dynamic> _$$_ContextToJson(_$_Context instance) =>
-    <String, dynamic>{
-      'title': instance.title,
     };
 
 _$_Item _$$_ItemFromJson(Map<String, dynamic> json) => _$_Item(
@@ -87,17 +74,13 @@ Map<String, dynamic> _$$_ImageToJson(_$_Image instance) => <String, dynamic>{
     };
 
 _$_Queries _$$_QueriesFromJson(Map<String, dynamic> json) => _$_Queries(
-      request: (json['request'] as List<dynamic>)
-          .map((e) => NextPage.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      nextPage: (json['nextPage'] as List<dynamic>)
-          .map((e) => NextPage.fromJson(e as Map<String, dynamic>))
+      nextPage: (json['nextPage'] as List<dynamic>?)
+          ?.map((e) => NextPage.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$$_QueriesToJson(_$_Queries instance) =>
     <String, dynamic>{
-      'request': instance.request,
       'nextPage': instance.nextPage,
     };
 
@@ -107,10 +90,6 @@ _$_NextPage _$$_NextPageFromJson(Map<String, dynamic> json) => _$_NextPage(
       searchTerms: json['searchTerms'] as String,
       count: json['count'] as int,
       startIndex: json['startIndex'] as int,
-      inputEncoding: json['inputEncoding'] as String,
-      outputEncoding: json['outputEncoding'] as String,
-      safe: json['safe'] as String,
-      cx: json['cx'] as String,
       searchType: json['searchType'] as String,
     );
 
@@ -121,10 +100,6 @@ Map<String, dynamic> _$$_NextPageToJson(_$_NextPage instance) =>
       'searchTerms': instance.searchTerms,
       'count': instance.count,
       'startIndex': instance.startIndex,
-      'inputEncoding': instance.inputEncoding,
-      'outputEncoding': instance.outputEncoding,
-      'safe': instance.safe,
-      'cx': instance.cx,
       'searchType': instance.searchType,
     };
 
@@ -143,14 +118,4 @@ Map<String, dynamic> _$$_SearchInformationToJson(
       'formattedSearchTime': instance.formattedSearchTime,
       'totalResults': instance.totalResults,
       'formattedTotalResults': instance.formattedTotalResults,
-    };
-
-_$_Url _$$_UrlFromJson(Map<String, dynamic> json) => _$_Url(
-      type: json['type'] as String,
-      template: json['template'] as String,
-    );
-
-Map<String, dynamic> _$$_UrlToJson(_$_Url instance) => <String, dynamic>{
-      'type': instance.type,
-      'template': instance.template,
     };

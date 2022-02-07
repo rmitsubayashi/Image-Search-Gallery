@@ -24,16 +24,12 @@ class _$GoogleCustomSearchResponseTearOff {
 
   _GoogleCustomSearchResponse call(
       {required String kind,
-      required Url url,
       required Queries queries,
-      required Context context,
       required SearchInformation searchInformation,
-      required List<Item> items}) {
+      required List<Item>? items}) {
     return _GoogleCustomSearchResponse(
       kind: kind,
-      url: url,
       queries: queries,
-      context: context,
       searchInformation: searchInformation,
       items: items,
     );
@@ -50,11 +46,9 @@ const $GoogleCustomSearchResponse = _$GoogleCustomSearchResponseTearOff();
 /// @nodoc
 mixin _$GoogleCustomSearchResponse {
   String get kind => throw _privateConstructorUsedError;
-  Url get url => throw _privateConstructorUsedError;
   Queries get queries => throw _privateConstructorUsedError;
-  Context get context => throw _privateConstructorUsedError;
   SearchInformation get searchInformation => throw _privateConstructorUsedError;
-  List<Item> get items => throw _privateConstructorUsedError;
+  List<Item>? get items => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -69,15 +63,11 @@ abstract class $GoogleCustomSearchResponseCopyWith<$Res> {
       _$GoogleCustomSearchResponseCopyWithImpl<$Res>;
   $Res call(
       {String kind,
-      Url url,
       Queries queries,
-      Context context,
       SearchInformation searchInformation,
-      List<Item> items});
+      List<Item>? items});
 
-  $UrlCopyWith<$Res> get url;
   $QueriesCopyWith<$Res> get queries;
-  $ContextCopyWith<$Res> get context;
   $SearchInformationCopyWith<$Res> get searchInformation;
 }
 
@@ -93,9 +83,7 @@ class _$GoogleCustomSearchResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? kind = freezed,
-    Object? url = freezed,
     Object? queries = freezed,
-    Object? context = freezed,
     Object? searchInformation = freezed,
     Object? items = freezed,
   }) {
@@ -104,18 +92,10 @@ class _$GoogleCustomSearchResponseCopyWithImpl<$Res>
           ? _value.kind
           : kind // ignore: cast_nullable_to_non_nullable
               as String,
-      url: url == freezed
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as Url,
       queries: queries == freezed
           ? _value.queries
           : queries // ignore: cast_nullable_to_non_nullable
               as Queries,
-      context: context == freezed
-          ? _value.context
-          : context // ignore: cast_nullable_to_non_nullable
-              as Context,
       searchInformation: searchInformation == freezed
           ? _value.searchInformation
           : searchInformation // ignore: cast_nullable_to_non_nullable
@@ -123,28 +103,14 @@ class _$GoogleCustomSearchResponseCopyWithImpl<$Res>
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<Item>,
+              as List<Item>?,
     ));
-  }
-
-  @override
-  $UrlCopyWith<$Res> get url {
-    return $UrlCopyWith<$Res>(_value.url, (value) {
-      return _then(_value.copyWith(url: value));
-    });
   }
 
   @override
   $QueriesCopyWith<$Res> get queries {
     return $QueriesCopyWith<$Res>(_value.queries, (value) {
       return _then(_value.copyWith(queries: value));
-    });
-  }
-
-  @override
-  $ContextCopyWith<$Res> get context {
-    return $ContextCopyWith<$Res>(_value.context, (value) {
-      return _then(_value.copyWith(context: value));
     });
   }
 
@@ -166,18 +132,12 @@ abstract class _$GoogleCustomSearchResponseCopyWith<$Res>
   @override
   $Res call(
       {String kind,
-      Url url,
       Queries queries,
-      Context context,
       SearchInformation searchInformation,
-      List<Item> items});
+      List<Item>? items});
 
   @override
-  $UrlCopyWith<$Res> get url;
-  @override
   $QueriesCopyWith<$Res> get queries;
-  @override
-  $ContextCopyWith<$Res> get context;
   @override
   $SearchInformationCopyWith<$Res> get searchInformation;
 }
@@ -197,9 +157,7 @@ class __$GoogleCustomSearchResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? kind = freezed,
-    Object? url = freezed,
     Object? queries = freezed,
-    Object? context = freezed,
     Object? searchInformation = freezed,
     Object? items = freezed,
   }) {
@@ -208,18 +166,10 @@ class __$GoogleCustomSearchResponseCopyWithImpl<$Res>
           ? _value.kind
           : kind // ignore: cast_nullable_to_non_nullable
               as String,
-      url: url == freezed
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as Url,
       queries: queries == freezed
           ? _value.queries
           : queries // ignore: cast_nullable_to_non_nullable
               as Queries,
-      context: context == freezed
-          ? _value.context
-          : context // ignore: cast_nullable_to_non_nullable
-              as Context,
       searchInformation: searchInformation == freezed
           ? _value.searchInformation
           : searchInformation // ignore: cast_nullable_to_non_nullable
@@ -227,7 +177,7 @@ class __$GoogleCustomSearchResponseCopyWithImpl<$Res>
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<Item>,
+              as List<Item>?,
     ));
   }
 }
@@ -237,9 +187,7 @@ class __$GoogleCustomSearchResponseCopyWithImpl<$Res>
 class _$_GoogleCustomSearchResponse implements _GoogleCustomSearchResponse {
   const _$_GoogleCustomSearchResponse(
       {required this.kind,
-      required this.url,
       required this.queries,
-      required this.context,
       required this.searchInformation,
       required this.items});
 
@@ -249,19 +197,15 @@ class _$_GoogleCustomSearchResponse implements _GoogleCustomSearchResponse {
   @override
   final String kind;
   @override
-  final Url url;
-  @override
   final Queries queries;
-  @override
-  final Context context;
   @override
   final SearchInformation searchInformation;
   @override
-  final List<Item> items;
+  final List<Item>? items;
 
   @override
   String toString() {
-    return 'GoogleCustomSearchResponse(kind: $kind, url: $url, queries: $queries, context: $context, searchInformation: $searchInformation, items: $items)';
+    return 'GoogleCustomSearchResponse(kind: $kind, queries: $queries, searchInformation: $searchInformation, items: $items)';
   }
 
   @override
@@ -270,17 +214,15 @@ class _$_GoogleCustomSearchResponse implements _GoogleCustomSearchResponse {
         (other.runtimeType == runtimeType &&
             other is _GoogleCustomSearchResponse &&
             (identical(other.kind, kind) || other.kind == kind) &&
-            (identical(other.url, url) || other.url == url) &&
             (identical(other.queries, queries) || other.queries == queries) &&
-            (identical(other.context, context) || other.context == context) &&
             (identical(other.searchInformation, searchInformation) ||
                 other.searchInformation == searchInformation) &&
             const DeepCollectionEquality().equals(other.items, items));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, kind, url, queries, context,
-      searchInformation, const DeepCollectionEquality().hash(items));
+  int get hashCode => Object.hash(runtimeType, kind, queries, searchInformation,
+      const DeepCollectionEquality().hash(items));
 
   @JsonKey(ignore: true)
   @override
@@ -298,11 +240,9 @@ abstract class _GoogleCustomSearchResponse
     implements GoogleCustomSearchResponse {
   const factory _GoogleCustomSearchResponse(
       {required String kind,
-      required Url url,
       required Queries queries,
-      required Context context,
       required SearchInformation searchInformation,
-      required List<Item> items}) = _$_GoogleCustomSearchResponse;
+      required List<Item>? items}) = _$_GoogleCustomSearchResponse;
 
   factory _GoogleCustomSearchResponse.fromJson(Map<String, dynamic> json) =
       _$_GoogleCustomSearchResponse.fromJson;
@@ -310,159 +250,15 @@ abstract class _GoogleCustomSearchResponse
   @override
   String get kind;
   @override
-  Url get url;
-  @override
   Queries get queries;
-  @override
-  Context get context;
   @override
   SearchInformation get searchInformation;
   @override
-  List<Item> get items;
+  List<Item>? get items;
   @override
   @JsonKey(ignore: true)
   _$GoogleCustomSearchResponseCopyWith<_GoogleCustomSearchResponse>
       get copyWith => throw _privateConstructorUsedError;
-}
-
-Context _$ContextFromJson(Map<String, dynamic> json) {
-  return _Context.fromJson(json);
-}
-
-/// @nodoc
-class _$ContextTearOff {
-  const _$ContextTearOff();
-
-  _Context call({required String title}) {
-    return _Context(
-      title: title,
-    );
-  }
-
-  Context fromJson(Map<String, Object?> json) {
-    return Context.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Context = _$ContextTearOff();
-
-/// @nodoc
-mixin _$Context {
-  String get title => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $ContextCopyWith<Context> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ContextCopyWith<$Res> {
-  factory $ContextCopyWith(Context value, $Res Function(Context) then) =
-      _$ContextCopyWithImpl<$Res>;
-  $Res call({String title});
-}
-
-/// @nodoc
-class _$ContextCopyWithImpl<$Res> implements $ContextCopyWith<$Res> {
-  _$ContextCopyWithImpl(this._value, this._then);
-
-  final Context _value;
-  // ignore: unused_field
-  final $Res Function(Context) _then;
-
-  @override
-  $Res call({
-    Object? title = freezed,
-  }) {
-    return _then(_value.copyWith(
-      title: title == freezed
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class _$ContextCopyWith<$Res> implements $ContextCopyWith<$Res> {
-  factory _$ContextCopyWith(_Context value, $Res Function(_Context) then) =
-      __$ContextCopyWithImpl<$Res>;
-  @override
-  $Res call({String title});
-}
-
-/// @nodoc
-class __$ContextCopyWithImpl<$Res> extends _$ContextCopyWithImpl<$Res>
-    implements _$ContextCopyWith<$Res> {
-  __$ContextCopyWithImpl(_Context _value, $Res Function(_Context) _then)
-      : super(_value, (v) => _then(v as _Context));
-
-  @override
-  _Context get _value => super._value as _Context;
-
-  @override
-  $Res call({
-    Object? title = freezed,
-  }) {
-    return _then(_Context(
-      title: title == freezed
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_Context implements _Context {
-  const _$_Context({required this.title});
-
-  factory _$_Context.fromJson(Map<String, dynamic> json) =>
-      _$$_ContextFromJson(json);
-
-  @override
-  final String title;
-
-  @override
-  String toString() {
-    return 'Context(title: $title)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _Context &&
-            (identical(other.title, title) || other.title == title));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, title);
-
-  @JsonKey(ignore: true)
-  @override
-  _$ContextCopyWith<_Context> get copyWith =>
-      __$ContextCopyWithImpl<_Context>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_ContextToJson(this);
-  }
-}
-
-abstract class _Context implements Context {
-  const factory _Context({required String title}) = _$_Context;
-
-  factory _Context.fromJson(Map<String, dynamic> json) = _$_Context.fromJson;
-
-  @override
-  String get title;
-  @override
-  @JsonKey(ignore: true)
-  _$ContextCopyWith<_Context> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 Item _$ItemFromJson(Map<String, dynamic> json) {
@@ -1113,10 +909,8 @@ Queries _$QueriesFromJson(Map<String, dynamic> json) {
 class _$QueriesTearOff {
   const _$QueriesTearOff();
 
-  _Queries call(
-      {required List<NextPage> request, required List<NextPage> nextPage}) {
+  _Queries call({required List<NextPage>? nextPage}) {
     return _Queries(
-      request: request,
       nextPage: nextPage,
     );
   }
@@ -1131,8 +925,7 @@ const $Queries = _$QueriesTearOff();
 
 /// @nodoc
 mixin _$Queries {
-  List<NextPage> get request => throw _privateConstructorUsedError;
-  List<NextPage> get nextPage => throw _privateConstructorUsedError;
+  List<NextPage>? get nextPage => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1143,7 +936,7 @@ mixin _$Queries {
 abstract class $QueriesCopyWith<$Res> {
   factory $QueriesCopyWith(Queries value, $Res Function(Queries) then) =
       _$QueriesCopyWithImpl<$Res>;
-  $Res call({List<NextPage> request, List<NextPage> nextPage});
+  $Res call({List<NextPage>? nextPage});
 }
 
 /// @nodoc
@@ -1156,18 +949,13 @@ class _$QueriesCopyWithImpl<$Res> implements $QueriesCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? request = freezed,
     Object? nextPage = freezed,
   }) {
     return _then(_value.copyWith(
-      request: request == freezed
-          ? _value.request
-          : request // ignore: cast_nullable_to_non_nullable
-              as List<NextPage>,
       nextPage: nextPage == freezed
           ? _value.nextPage
           : nextPage // ignore: cast_nullable_to_non_nullable
-              as List<NextPage>,
+              as List<NextPage>?,
     ));
   }
 }
@@ -1177,7 +965,7 @@ abstract class _$QueriesCopyWith<$Res> implements $QueriesCopyWith<$Res> {
   factory _$QueriesCopyWith(_Queries value, $Res Function(_Queries) then) =
       __$QueriesCopyWithImpl<$Res>;
   @override
-  $Res call({List<NextPage> request, List<NextPage> nextPage});
+  $Res call({List<NextPage>? nextPage});
 }
 
 /// @nodoc
@@ -1191,18 +979,13 @@ class __$QueriesCopyWithImpl<$Res> extends _$QueriesCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? request = freezed,
     Object? nextPage = freezed,
   }) {
     return _then(_Queries(
-      request: request == freezed
-          ? _value.request
-          : request // ignore: cast_nullable_to_non_nullable
-              as List<NextPage>,
       nextPage: nextPage == freezed
           ? _value.nextPage
           : nextPage // ignore: cast_nullable_to_non_nullable
-              as List<NextPage>,
+              as List<NextPage>?,
     ));
   }
 }
@@ -1210,19 +993,17 @@ class __$QueriesCopyWithImpl<$Res> extends _$QueriesCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Queries implements _Queries {
-  const _$_Queries({required this.request, required this.nextPage});
+  const _$_Queries({required this.nextPage});
 
   factory _$_Queries.fromJson(Map<String, dynamic> json) =>
       _$$_QueriesFromJson(json);
 
   @override
-  final List<NextPage> request;
-  @override
-  final List<NextPage> nextPage;
+  final List<NextPage>? nextPage;
 
   @override
   String toString() {
-    return 'Queries(request: $request, nextPage: $nextPage)';
+    return 'Queries(nextPage: $nextPage)';
   }
 
   @override
@@ -1230,15 +1011,12 @@ class _$_Queries implements _Queries {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Queries &&
-            const DeepCollectionEquality().equals(other.request, request) &&
             const DeepCollectionEquality().equals(other.nextPage, nextPage));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(request),
-      const DeepCollectionEquality().hash(nextPage));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(nextPage));
 
   @JsonKey(ignore: true)
   @override
@@ -1252,16 +1030,12 @@ class _$_Queries implements _Queries {
 }
 
 abstract class _Queries implements Queries {
-  const factory _Queries(
-      {required List<NextPage> request,
-      required List<NextPage> nextPage}) = _$_Queries;
+  const factory _Queries({required List<NextPage>? nextPage}) = _$_Queries;
 
   factory _Queries.fromJson(Map<String, dynamic> json) = _$_Queries.fromJson;
 
   @override
-  List<NextPage> get request;
-  @override
-  List<NextPage> get nextPage;
+  List<NextPage>? get nextPage;
   @override
   @JsonKey(ignore: true)
   _$QueriesCopyWith<_Queries> get copyWith =>
@@ -1282,10 +1056,6 @@ class _$NextPageTearOff {
       required String searchTerms,
       required int count,
       required int startIndex,
-      required String inputEncoding,
-      required String outputEncoding,
-      required String safe,
-      required String cx,
       required String searchType}) {
     return _NextPage(
       title: title,
@@ -1293,10 +1063,6 @@ class _$NextPageTearOff {
       searchTerms: searchTerms,
       count: count,
       startIndex: startIndex,
-      inputEncoding: inputEncoding,
-      outputEncoding: outputEncoding,
-      safe: safe,
-      cx: cx,
       searchType: searchType,
     );
   }
@@ -1316,10 +1082,6 @@ mixin _$NextPage {
   String get searchTerms => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
   int get startIndex => throw _privateConstructorUsedError;
-  String get inputEncoding => throw _privateConstructorUsedError;
-  String get outputEncoding => throw _privateConstructorUsedError;
-  String get safe => throw _privateConstructorUsedError;
-  String get cx => throw _privateConstructorUsedError;
   String get searchType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1338,10 +1100,6 @@ abstract class $NextPageCopyWith<$Res> {
       String searchTerms,
       int count,
       int startIndex,
-      String inputEncoding,
-      String outputEncoding,
-      String safe,
-      String cx,
       String searchType});
 }
 
@@ -1360,10 +1118,6 @@ class _$NextPageCopyWithImpl<$Res> implements $NextPageCopyWith<$Res> {
     Object? searchTerms = freezed,
     Object? count = freezed,
     Object? startIndex = freezed,
-    Object? inputEncoding = freezed,
-    Object? outputEncoding = freezed,
-    Object? safe = freezed,
-    Object? cx = freezed,
     Object? searchType = freezed,
   }) {
     return _then(_value.copyWith(
@@ -1387,22 +1141,6 @@ class _$NextPageCopyWithImpl<$Res> implements $NextPageCopyWith<$Res> {
           ? _value.startIndex
           : startIndex // ignore: cast_nullable_to_non_nullable
               as int,
-      inputEncoding: inputEncoding == freezed
-          ? _value.inputEncoding
-          : inputEncoding // ignore: cast_nullable_to_non_nullable
-              as String,
-      outputEncoding: outputEncoding == freezed
-          ? _value.outputEncoding
-          : outputEncoding // ignore: cast_nullable_to_non_nullable
-              as String,
-      safe: safe == freezed
-          ? _value.safe
-          : safe // ignore: cast_nullable_to_non_nullable
-              as String,
-      cx: cx == freezed
-          ? _value.cx
-          : cx // ignore: cast_nullable_to_non_nullable
-              as String,
       searchType: searchType == freezed
           ? _value.searchType
           : searchType // ignore: cast_nullable_to_non_nullable
@@ -1422,10 +1160,6 @@ abstract class _$NextPageCopyWith<$Res> implements $NextPageCopyWith<$Res> {
       String searchTerms,
       int count,
       int startIndex,
-      String inputEncoding,
-      String outputEncoding,
-      String safe,
-      String cx,
       String searchType});
 }
 
@@ -1445,10 +1179,6 @@ class __$NextPageCopyWithImpl<$Res> extends _$NextPageCopyWithImpl<$Res>
     Object? searchTerms = freezed,
     Object? count = freezed,
     Object? startIndex = freezed,
-    Object? inputEncoding = freezed,
-    Object? outputEncoding = freezed,
-    Object? safe = freezed,
-    Object? cx = freezed,
     Object? searchType = freezed,
   }) {
     return _then(_NextPage(
@@ -1472,22 +1202,6 @@ class __$NextPageCopyWithImpl<$Res> extends _$NextPageCopyWithImpl<$Res>
           ? _value.startIndex
           : startIndex // ignore: cast_nullable_to_non_nullable
               as int,
-      inputEncoding: inputEncoding == freezed
-          ? _value.inputEncoding
-          : inputEncoding // ignore: cast_nullable_to_non_nullable
-              as String,
-      outputEncoding: outputEncoding == freezed
-          ? _value.outputEncoding
-          : outputEncoding // ignore: cast_nullable_to_non_nullable
-              as String,
-      safe: safe == freezed
-          ? _value.safe
-          : safe // ignore: cast_nullable_to_non_nullable
-              as String,
-      cx: cx == freezed
-          ? _value.cx
-          : cx // ignore: cast_nullable_to_non_nullable
-              as String,
       searchType: searchType == freezed
           ? _value.searchType
           : searchType // ignore: cast_nullable_to_non_nullable
@@ -1505,10 +1219,6 @@ class _$_NextPage implements _NextPage {
       required this.searchTerms,
       required this.count,
       required this.startIndex,
-      required this.inputEncoding,
-      required this.outputEncoding,
-      required this.safe,
-      required this.cx,
       required this.searchType});
 
   factory _$_NextPage.fromJson(Map<String, dynamic> json) =>
@@ -1525,19 +1235,11 @@ class _$_NextPage implements _NextPage {
   @override
   final int startIndex;
   @override
-  final String inputEncoding;
-  @override
-  final String outputEncoding;
-  @override
-  final String safe;
-  @override
-  final String cx;
-  @override
   final String searchType;
 
   @override
   String toString() {
-    return 'NextPage(title: $title, totalResults: $totalResults, searchTerms: $searchTerms, count: $count, startIndex: $startIndex, inputEncoding: $inputEncoding, outputEncoding: $outputEncoding, safe: $safe, cx: $cx, searchType: $searchType)';
+    return 'NextPage(title: $title, totalResults: $totalResults, searchTerms: $searchTerms, count: $count, startIndex: $startIndex, searchType: $searchType)';
   }
 
   @override
@@ -1553,19 +1255,13 @@ class _$_NextPage implements _NextPage {
             (identical(other.count, count) || other.count == count) &&
             (identical(other.startIndex, startIndex) ||
                 other.startIndex == startIndex) &&
-            (identical(other.inputEncoding, inputEncoding) ||
-                other.inputEncoding == inputEncoding) &&
-            (identical(other.outputEncoding, outputEncoding) ||
-                other.outputEncoding == outputEncoding) &&
-            (identical(other.safe, safe) || other.safe == safe) &&
-            (identical(other.cx, cx) || other.cx == cx) &&
             (identical(other.searchType, searchType) ||
                 other.searchType == searchType));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, title, totalResults, searchTerms,
-      count, startIndex, inputEncoding, outputEncoding, safe, cx, searchType);
+      count, startIndex, searchType);
 
   @JsonKey(ignore: true)
   @override
@@ -1585,10 +1281,6 @@ abstract class _NextPage implements NextPage {
       required String searchTerms,
       required int count,
       required int startIndex,
-      required String inputEncoding,
-      required String outputEncoding,
-      required String safe,
-      required String cx,
       required String searchType}) = _$_NextPage;
 
   factory _NextPage.fromJson(Map<String, dynamic> json) = _$_NextPage.fromJson;
@@ -1603,14 +1295,6 @@ abstract class _NextPage implements NextPage {
   int get count;
   @override
   int get startIndex;
-  @override
-  String get inputEncoding;
-  @override
-  String get outputEncoding;
-  @override
-  String get safe;
-  @override
-  String get cx;
   @override
   String get searchType;
   @override
@@ -1841,160 +1525,4 @@ abstract class _SearchInformation implements SearchInformation {
   @JsonKey(ignore: true)
   _$SearchInformationCopyWith<_SearchInformation> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-Url _$UrlFromJson(Map<String, dynamic> json) {
-  return _Url.fromJson(json);
-}
-
-/// @nodoc
-class _$UrlTearOff {
-  const _$UrlTearOff();
-
-  _Url call({required String type, required String template}) {
-    return _Url(
-      type: type,
-      template: template,
-    );
-  }
-
-  Url fromJson(Map<String, Object?> json) {
-    return Url.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Url = _$UrlTearOff();
-
-/// @nodoc
-mixin _$Url {
-  String get type => throw _privateConstructorUsedError;
-  String get template => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $UrlCopyWith<Url> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $UrlCopyWith<$Res> {
-  factory $UrlCopyWith(Url value, $Res Function(Url) then) =
-      _$UrlCopyWithImpl<$Res>;
-  $Res call({String type, String template});
-}
-
-/// @nodoc
-class _$UrlCopyWithImpl<$Res> implements $UrlCopyWith<$Res> {
-  _$UrlCopyWithImpl(this._value, this._then);
-
-  final Url _value;
-  // ignore: unused_field
-  final $Res Function(Url) _then;
-
-  @override
-  $Res call({
-    Object? type = freezed,
-    Object? template = freezed,
-  }) {
-    return _then(_value.copyWith(
-      type: type == freezed
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      template: template == freezed
-          ? _value.template
-          : template // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class _$UrlCopyWith<$Res> implements $UrlCopyWith<$Res> {
-  factory _$UrlCopyWith(_Url value, $Res Function(_Url) then) =
-      __$UrlCopyWithImpl<$Res>;
-  @override
-  $Res call({String type, String template});
-}
-
-/// @nodoc
-class __$UrlCopyWithImpl<$Res> extends _$UrlCopyWithImpl<$Res>
-    implements _$UrlCopyWith<$Res> {
-  __$UrlCopyWithImpl(_Url _value, $Res Function(_Url) _then)
-      : super(_value, (v) => _then(v as _Url));
-
-  @override
-  _Url get _value => super._value as _Url;
-
-  @override
-  $Res call({
-    Object? type = freezed,
-    Object? template = freezed,
-  }) {
-    return _then(_Url(
-      type: type == freezed
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      template: template == freezed
-          ? _value.template
-          : template // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_Url implements _Url {
-  const _$_Url({required this.type, required this.template});
-
-  factory _$_Url.fromJson(Map<String, dynamic> json) => _$$_UrlFromJson(json);
-
-  @override
-  final String type;
-  @override
-  final String template;
-
-  @override
-  String toString() {
-    return 'Url(type: $type, template: $template)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _Url &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.template, template) ||
-                other.template == template));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, type, template);
-
-  @JsonKey(ignore: true)
-  @override
-  _$UrlCopyWith<_Url> get copyWith =>
-      __$UrlCopyWithImpl<_Url>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_UrlToJson(this);
-  }
-}
-
-abstract class _Url implements Url {
-  const factory _Url({required String type, required String template}) = _$_Url;
-
-  factory _Url.fromJson(Map<String, dynamic> json) = _$_Url.fromJson;
-
-  @override
-  String get type;
-  @override
-  String get template;
-  @override
-  @JsonKey(ignore: true)
-  _$UrlCopyWith<_Url> get copyWith => throw _privateConstructorUsedError;
 }

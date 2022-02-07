@@ -17,23 +17,12 @@ String googleCustomSearchResponseToJson(GoogleCustomSearchResponse data) => json
 abstract class GoogleCustomSearchResponse with _$GoogleCustomSearchResponse {
   const factory GoogleCustomSearchResponse({
     required String kind,
-    required Url url,
     required Queries queries,
-    required Context context,
     required SearchInformation searchInformation,
-    required List<Item> items,
+    required List<Item>? items,
   }) = _GoogleCustomSearchResponse;
 
   factory GoogleCustomSearchResponse.fromJson(Map<String, dynamic> json) => _$GoogleCustomSearchResponseFromJson(json);
-}
-
-@freezed
-abstract class Context with _$Context {
-  const factory Context({
-    required String title,
-  }) = _Context;
-
-  factory Context.fromJson(Map<String, dynamic> json) => _$ContextFromJson(json);
 }
 
 @freezed
@@ -72,8 +61,7 @@ abstract class Image with _$Image {
 @freezed
 abstract class Queries with _$Queries {
   const factory Queries({
-    required List<NextPage> request,
-    required List<NextPage> nextPage,
+    required List<NextPage>? nextPage,
   }) = _Queries;
 
   factory Queries.fromJson(Map<String, dynamic> json) => _$QueriesFromJson(json);
@@ -87,10 +75,6 @@ abstract class NextPage with _$NextPage {
     required String searchTerms,
     required int count,
     required int startIndex,
-    required String inputEncoding,
-    required String outputEncoding,
-    required String safe,
-    required String cx,
     required String searchType,
   }) = _NextPage;
 
@@ -107,14 +91,4 @@ abstract class SearchInformation with _$SearchInformation {
   }) = _SearchInformation;
 
   factory SearchInformation.fromJson(Map<String, dynamic> json) => _$SearchInformationFromJson(json);
-}
-
-@freezed
-abstract class Url with _$Url {
-  const factory Url({
-    required String type,
-    required String template,
-  }) = _Url;
-
-  factory Url.fromJson(Map<String, dynamic> json) => _$UrlFromJson(json);
 }
