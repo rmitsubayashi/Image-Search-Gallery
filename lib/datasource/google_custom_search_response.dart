@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final googleCustomSearchResponse = googleCustomSearchResponseFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
 
@@ -19,6 +14,7 @@ abstract class GoogleCustomSearchResponse with _$GoogleCustomSearchResponse {
     required String kind,
     required Queries queries,
     required SearchInformation searchInformation,
+    required Spelling? spelling,
     required List<Item>? items,
   }) = _GoogleCustomSearchResponse;
 
@@ -91,4 +87,13 @@ abstract class SearchInformation with _$SearchInformation {
   }) = _SearchInformation;
 
   factory SearchInformation.fromJson(Map<String, dynamic> json) => _$SearchInformationFromJson(json);
+}
+
+@freezed
+abstract class Spelling with _$Spelling {
+  const factory Spelling({
+    required String correctedQuery,
+  }) = _Spelling;
+
+  factory Spelling.fromJson(Map<String, dynamic> json) => _$SpellingFromJson(json);
 }

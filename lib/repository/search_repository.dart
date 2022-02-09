@@ -1,11 +1,12 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:imagesearchgallery/datasource/google_custom_search_data_source.dart';
 import 'package:imagesearchgallery/entity/image_search_result.dart';
+import 'package:imagesearchgallery/entity/result.dart';
 
 final searchRepository = Provider.autoDispose<SearchRepository>((ref) => GoogleCustomSearchRepository(ref.read));
 
 abstract class SearchRepository {
-  Future<ImageSearchResult> search(String searchTerm, int startingIndex);
+  Future<Result<ImageSearchResult>> search(String searchTerm, int startingIndex);
 }
 
 class GoogleCustomSearchRepository implements SearchRepository {
@@ -13,7 +14,7 @@ class GoogleCustomSearchRepository implements SearchRepository {
   GoogleCustomSearchRepository(this.read);
 
   @override
-  Future<ImageSearchResult> search(String searchTerm, int startingIndex) async {
+  Future<Result<ImageSearchResult>> search(String searchTerm, int startingIndex) async {
     final dataSource = read(googleCustomSearchDataSource);
     return dataSource.getSearchResult(searchTerm, startingIndex);
   }

@@ -3,12 +3,14 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:imagesearchgallery/datasource/google_custom_search_response.dart';
+import 'package:imagesearchgallery/entity/errors.dart';
 import 'package:imagesearchgallery/entity/image_search_result.dart';
+import 'package:imagesearchgallery/entity/result.dart';
 
 final googleCustomSearchDataSource = Provider((ref) => GoogleCustomSearchDataSource());
 
 class GoogleCustomSearchDataSource {
-  Future<ImageSearchResult> getSearchResult(String query, int startingIndex) async {
+  Future<Result<ImageSearchResult>> getSearchResult(String query, int startingIndex) async {
     final apiKey = await getAPIKey();
     try {
       final dio = Dio();
@@ -30,10 +32,11 @@ class GoogleCustomSearchDataSource {
           response.toString());
       final urls = responseClass.items?.map((e) => e.link).toList() ?? List.empty();
       final next = responseClass.queries.nextPage?[0].startIndex ?? -1;
-      return ImageSearchResult(urls, next);
+      final suggestedWord = responseClass.spelling?.correctedQuery;
+      final spellingError = suggestedWord == null ? null : ErrorObject(SpellingError(query), suggestedWord);
+      return Result(ImageSearchResult(urls, next), spellingError);
     } catch(error) {
-      // throws null -> string conversion exception
-      return const ImageSearchResult([], -1);
+      return Result(const ImageSearchResult([], -1), ErrorObject(GeneralError(error.toString()), null));
     }
   }
 

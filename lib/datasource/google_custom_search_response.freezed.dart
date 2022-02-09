@@ -26,11 +26,13 @@ class _$GoogleCustomSearchResponseTearOff {
       {required String kind,
       required Queries queries,
       required SearchInformation searchInformation,
+      required Spelling? spelling,
       required List<Item>? items}) {
     return _GoogleCustomSearchResponse(
       kind: kind,
       queries: queries,
       searchInformation: searchInformation,
+      spelling: spelling,
       items: items,
     );
   }
@@ -48,6 +50,7 @@ mixin _$GoogleCustomSearchResponse {
   String get kind => throw _privateConstructorUsedError;
   Queries get queries => throw _privateConstructorUsedError;
   SearchInformation get searchInformation => throw _privateConstructorUsedError;
+  Spelling? get spelling => throw _privateConstructorUsedError;
   List<Item>? get items => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -65,10 +68,12 @@ abstract class $GoogleCustomSearchResponseCopyWith<$Res> {
       {String kind,
       Queries queries,
       SearchInformation searchInformation,
+      Spelling? spelling,
       List<Item>? items});
 
   $QueriesCopyWith<$Res> get queries;
   $SearchInformationCopyWith<$Res> get searchInformation;
+  $SpellingCopyWith<$Res>? get spelling;
 }
 
 /// @nodoc
@@ -85,6 +90,7 @@ class _$GoogleCustomSearchResponseCopyWithImpl<$Res>
     Object? kind = freezed,
     Object? queries = freezed,
     Object? searchInformation = freezed,
+    Object? spelling = freezed,
     Object? items = freezed,
   }) {
     return _then(_value.copyWith(
@@ -100,6 +106,10 @@ class _$GoogleCustomSearchResponseCopyWithImpl<$Res>
           ? _value.searchInformation
           : searchInformation // ignore: cast_nullable_to_non_nullable
               as SearchInformation,
+      spelling: spelling == freezed
+          ? _value.spelling
+          : spelling // ignore: cast_nullable_to_non_nullable
+              as Spelling?,
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -120,6 +130,17 @@ class _$GoogleCustomSearchResponseCopyWithImpl<$Res>
       return _then(_value.copyWith(searchInformation: value));
     });
   }
+
+  @override
+  $SpellingCopyWith<$Res>? get spelling {
+    if (_value.spelling == null) {
+      return null;
+    }
+
+    return $SpellingCopyWith<$Res>(_value.spelling!, (value) {
+      return _then(_value.copyWith(spelling: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -134,12 +155,15 @@ abstract class _$GoogleCustomSearchResponseCopyWith<$Res>
       {String kind,
       Queries queries,
       SearchInformation searchInformation,
+      Spelling? spelling,
       List<Item>? items});
 
   @override
   $QueriesCopyWith<$Res> get queries;
   @override
   $SearchInformationCopyWith<$Res> get searchInformation;
+  @override
+  $SpellingCopyWith<$Res>? get spelling;
 }
 
 /// @nodoc
@@ -159,6 +183,7 @@ class __$GoogleCustomSearchResponseCopyWithImpl<$Res>
     Object? kind = freezed,
     Object? queries = freezed,
     Object? searchInformation = freezed,
+    Object? spelling = freezed,
     Object? items = freezed,
   }) {
     return _then(_GoogleCustomSearchResponse(
@@ -174,6 +199,10 @@ class __$GoogleCustomSearchResponseCopyWithImpl<$Res>
           ? _value.searchInformation
           : searchInformation // ignore: cast_nullable_to_non_nullable
               as SearchInformation,
+      spelling: spelling == freezed
+          ? _value.spelling
+          : spelling // ignore: cast_nullable_to_non_nullable
+              as Spelling?,
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -189,6 +218,7 @@ class _$_GoogleCustomSearchResponse implements _GoogleCustomSearchResponse {
       {required this.kind,
       required this.queries,
       required this.searchInformation,
+      required this.spelling,
       required this.items});
 
   factory _$_GoogleCustomSearchResponse.fromJson(Map<String, dynamic> json) =>
@@ -201,11 +231,13 @@ class _$_GoogleCustomSearchResponse implements _GoogleCustomSearchResponse {
   @override
   final SearchInformation searchInformation;
   @override
+  final Spelling? spelling;
+  @override
   final List<Item>? items;
 
   @override
   String toString() {
-    return 'GoogleCustomSearchResponse(kind: $kind, queries: $queries, searchInformation: $searchInformation, items: $items)';
+    return 'GoogleCustomSearchResponse(kind: $kind, queries: $queries, searchInformation: $searchInformation, spelling: $spelling, items: $items)';
   }
 
   @override
@@ -217,12 +249,14 @@ class _$_GoogleCustomSearchResponse implements _GoogleCustomSearchResponse {
             (identical(other.queries, queries) || other.queries == queries) &&
             (identical(other.searchInformation, searchInformation) ||
                 other.searchInformation == searchInformation) &&
+            (identical(other.spelling, spelling) ||
+                other.spelling == spelling) &&
             const DeepCollectionEquality().equals(other.items, items));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, kind, queries, searchInformation,
-      const DeepCollectionEquality().hash(items));
+      spelling, const DeepCollectionEquality().hash(items));
 
   @JsonKey(ignore: true)
   @override
@@ -242,6 +276,7 @@ abstract class _GoogleCustomSearchResponse
       {required String kind,
       required Queries queries,
       required SearchInformation searchInformation,
+      required Spelling? spelling,
       required List<Item>? items}) = _$_GoogleCustomSearchResponse;
 
   factory _GoogleCustomSearchResponse.fromJson(Map<String, dynamic> json) =
@@ -253,6 +288,8 @@ abstract class _GoogleCustomSearchResponse
   Queries get queries;
   @override
   SearchInformation get searchInformation;
+  @override
+  Spelling? get spelling;
   @override
   List<Item>? get items;
   @override
@@ -1524,5 +1561,147 @@ abstract class _SearchInformation implements SearchInformation {
   @override
   @JsonKey(ignore: true)
   _$SearchInformationCopyWith<_SearchInformation> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Spelling _$SpellingFromJson(Map<String, dynamic> json) {
+  return _Spelling.fromJson(json);
+}
+
+/// @nodoc
+class _$SpellingTearOff {
+  const _$SpellingTearOff();
+
+  _Spelling call({required String correctedQuery}) {
+    return _Spelling(
+      correctedQuery: correctedQuery,
+    );
+  }
+
+  Spelling fromJson(Map<String, Object?> json) {
+    return Spelling.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $Spelling = _$SpellingTearOff();
+
+/// @nodoc
+mixin _$Spelling {
+  String get correctedQuery => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $SpellingCopyWith<Spelling> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SpellingCopyWith<$Res> {
+  factory $SpellingCopyWith(Spelling value, $Res Function(Spelling) then) =
+      _$SpellingCopyWithImpl<$Res>;
+  $Res call({String correctedQuery});
+}
+
+/// @nodoc
+class _$SpellingCopyWithImpl<$Res> implements $SpellingCopyWith<$Res> {
+  _$SpellingCopyWithImpl(this._value, this._then);
+
+  final Spelling _value;
+  // ignore: unused_field
+  final $Res Function(Spelling) _then;
+
+  @override
+  $Res call({
+    Object? correctedQuery = freezed,
+  }) {
+    return _then(_value.copyWith(
+      correctedQuery: correctedQuery == freezed
+          ? _value.correctedQuery
+          : correctedQuery // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$SpellingCopyWith<$Res> implements $SpellingCopyWith<$Res> {
+  factory _$SpellingCopyWith(_Spelling value, $Res Function(_Spelling) then) =
+      __$SpellingCopyWithImpl<$Res>;
+  @override
+  $Res call({String correctedQuery});
+}
+
+/// @nodoc
+class __$SpellingCopyWithImpl<$Res> extends _$SpellingCopyWithImpl<$Res>
+    implements _$SpellingCopyWith<$Res> {
+  __$SpellingCopyWithImpl(_Spelling _value, $Res Function(_Spelling) _then)
+      : super(_value, (v) => _then(v as _Spelling));
+
+  @override
+  _Spelling get _value => super._value as _Spelling;
+
+  @override
+  $Res call({
+    Object? correctedQuery = freezed,
+  }) {
+    return _then(_Spelling(
+      correctedQuery: correctedQuery == freezed
+          ? _value.correctedQuery
+          : correctedQuery // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Spelling implements _Spelling {
+  const _$_Spelling({required this.correctedQuery});
+
+  factory _$_Spelling.fromJson(Map<String, dynamic> json) =>
+      _$$_SpellingFromJson(json);
+
+  @override
+  final String correctedQuery;
+
+  @override
+  String toString() {
+    return 'Spelling(correctedQuery: $correctedQuery)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _Spelling &&
+            (identical(other.correctedQuery, correctedQuery) ||
+                other.correctedQuery == correctedQuery));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, correctedQuery);
+
+  @JsonKey(ignore: true)
+  @override
+  _$SpellingCopyWith<_Spelling> get copyWith =>
+      __$SpellingCopyWithImpl<_Spelling>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_SpellingToJson(this);
+  }
+}
+
+abstract class _Spelling implements Spelling {
+  const factory _Spelling({required String correctedQuery}) = _$_Spelling;
+
+  factory _Spelling.fromJson(Map<String, dynamic> json) = _$_Spelling.fromJson;
+
+  @override
+  String get correctedQuery;
+  @override
+  @JsonKey(ignore: true)
+  _$SpellingCopyWith<_Spelling> get copyWith =>
       throw _privateConstructorUsedError;
 }

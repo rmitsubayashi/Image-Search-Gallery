@@ -12,6 +12,7 @@ class SearchScreen extends HookConsumerWidget {
     final searchResult = ref.watch(searchResultLinkProvider);
     final searchTerm = ref.watch(searchTermProvider);
     final searchLoadingState = ref.watch(searchLoadingStateProvider);
+    final suggestedWord = ref.watch(suggestedWordProvider);
     final _textFieldController = TextEditingController(text: searchTerm);
     final _scrollController = ScrollController();
     _scrollController.addListener(() {
@@ -57,8 +58,20 @@ class SearchScreen extends HookConsumerWidget {
                 : StaggeredGridView.countBuilder(
                     controller: _scrollController,
                     crossAxisCount: 4,
-                    itemCount: searchResult.length,
+                    itemCount: searchResult.length + 1,
                     itemBuilder: (_, index) {
+                      if (index == 0) {
+                        if (suggestedWord == null) {
+                          return const Center();
+                        }
+                        if (suggestedWord.hasResults) {
+                          return Text("searching for ${suggestedWord.suggestion}");
+                        } else {
+                          return Text("no results. search for ${suggestedWord.suggestion} instead?");
+                        }
+                        return const Center();
+                      }
+                      index -= 1;
                       return InkWell(
                         child: Hero(
                             tag: "tag_${searchResult[index]}",
@@ -90,41 +103,5 @@ class SearchScreen extends HookConsumerWidget {
                 : const Center()
           ],
         ));
-  }
-
-  StaggeredGridView searchResultView(
-      ScrollController controller,
-      List<String> links,
-      BuildContext context,
-      WidgetRef ref,
-      String searchTerm) {
-    return StaggeredGridView.countBuilder(
-      controller: controller,
-      crossAxisCount: 4,
-      itemCount: links.length,
-      itemBuilder: (_, index) {
-        return InkWell(
-          child: Hero(
-              tag: "tag_${links[index]}",
-              child: FadeInImage.memoryNetwork(
-                placeholder: kTransparentImage,
-                image: links[index],
-                fit: BoxFit.scaleDown,
-              )),
-          onTap: () {
-            ref.read(selectSearchResultStateNotifier).select(
-                SelectedSearchResult(
-                    searchTerm: searchTerm, url: links[index]));
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => SelectedSearchResultScreen()));
-          },
-        );
-      },
-      staggeredTileBuilder: (int index) => const StaggeredTile.fit(2),
-      mainAxisSpacing: 2,
-      crossAxisSpacing: 2,
-    );
   }
 }

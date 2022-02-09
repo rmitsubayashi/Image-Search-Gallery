@@ -13,6 +13,9 @@ _$_GoogleCustomSearchResponse _$$_GoogleCustomSearchResponseFromJson(
       queries: Queries.fromJson(json['queries'] as Map<String, dynamic>),
       searchInformation: SearchInformation.fromJson(
           json['searchInformation'] as Map<String, dynamic>),
+      spelling: json['spelling'] == null
+          ? null
+          : Spelling.fromJson(json['spelling'] as Map<String, dynamic>),
       items: (json['items'] as List<dynamic>?)
           ?.map((e) => Item.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -24,6 +27,7 @@ Map<String, dynamic> _$$_GoogleCustomSearchResponseToJson(
       'kind': instance.kind,
       'queries': instance.queries,
       'searchInformation': instance.searchInformation,
+      'spelling': instance.spelling,
       'items': instance.items,
     };
 
@@ -118,4 +122,13 @@ Map<String, dynamic> _$$_SearchInformationToJson(
       'formattedSearchTime': instance.formattedSearchTime,
       'totalResults': instance.totalResults,
       'formattedTotalResults': instance.formattedTotalResults,
+    };
+
+_$_Spelling _$$_SpellingFromJson(Map<String, dynamic> json) => _$_Spelling(
+      correctedQuery: json['correctedQuery'] as String,
+    );
+
+Map<String, dynamic> _$$_SpellingToJson(_$_Spelling instance) =>
+    <String, dynamic>{
+      'correctedQuery': instance.correctedQuery,
     };
