@@ -4,7 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:imagesearchgallery/provider/saved_images_provider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:imagesearchgallery/provider/selected_saved_image_provider.dart';
 import 'package:imagesearchgallery/view/search_screen.dart';
+import 'package:imagesearchgallery/view/selected_saved_image_screen.dart';
 
 class SavedImagesScreen extends HookConsumerWidget {
   @override
@@ -27,19 +29,30 @@ class SavedImagesScreen extends HookConsumerWidget {
                   itemBuilder: (_, index) {
                     return Stack(children: [
                       Column(children: [
-                        CachedNetworkImage(
-                          placeholder: (context, url) =>
-                              const CircularProgressIndicator(
-                                  color: Colors.black12),
-                          imageUrl: images[index].url,
-                          fit: BoxFit.scaleDown,
-                        ),
+                        Hero(
+                            tag: "tag_${images[index].url}",
+                            child: CachedNetworkImage(
+                              placeholder: (context, url) =>
+                                  const CircularProgressIndicator(
+                                      color: Colors.black12),
+                              imageUrl: images[index].url,
+                              fit: BoxFit.scaleDown,
+                            )),
                         Text(images[index].label)
                       ]),
                       Positioned.fill(
                           child: Material(
                               color: Colors.transparent,
-                              child: InkWell(onLongPress: () {
+                              child: InkWell(onTap: () {
+                                ref
+                                    .read(selectedSavedImageNotifier)
+                                    .select(images[index]);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SelectedSavedImageScreen()));
+                              }, onLongPress: () {
                                 showMenu(
                                     context: context,
                                     // top right

@@ -69,7 +69,6 @@ class SearchScreen extends HookConsumerWidget {
                         } else {
                           return Text("no results. search for ${suggestedWord.suggestion} instead?");
                         }
-                        return const Center();
                       }
                       index -= 1;
                       return InkWell(
