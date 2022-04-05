@@ -26,8 +26,13 @@ class SelectedSavedImageScreen extends HookConsumerWidget {
                   final success =
                       await savedImageNotifier.delete(selectedSavedImage);
                   if (success) {
-                    Fluttertoast.showToast(msg: "Deleted!");
                     Navigator.pop(context);
+                    final snackBar = SnackBar(content: const Text("Deleted"),
+                    action: SnackBarAction(label: "Undo", onPressed: () {
+                      savedImageNotifier.undoDelete();
+                      Fluttertoast.showToast(msg: "Undo!");
+                    },),);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   } else {
                     Fluttertoast.showToast(msg: "Failed");
                   }

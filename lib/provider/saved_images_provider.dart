@@ -27,6 +27,8 @@ final savedImagesProvider = FutureProvider<List<SavedImage>>((ref) async {
 
 final newlyAddedImageProvider = StateProvider<SavedImage?>((ref) => null);
 
+final lastDeletedImageProvider = StateProvider<SavedImage?>((ref) => null);
+
 final savedImageNotifierProvider = Provider.autoDispose((ref) => SavedImageNotifier(ref));
 
 class SavedImageNotifier extends StateNotifier<SavedImage?> {
@@ -37,6 +39,7 @@ class SavedImageNotifier extends StateNotifier<SavedImage?> {
   Future<bool> delete(SavedImage image) async {
     final result = await ref.read(savedImagesRepositoryProvider).delete(image);
     await CachedNetworkImage.evictFromCache(image.url);
+    ref.read(lastDeletedImageProvider.notifier).state = image;
     final newlyAddedImage = ref.read(newlyAddedImageProvider);
     if (newlyAddedImage?.id == image.id) {
       ref.read(newlyAddedImageProvider.notifier).state = null;
@@ -53,5 +56,19 @@ class SavedImageNotifier extends StateNotifier<SavedImage?> {
     }
     ref.refresh(savedImagesProvider);
     return result;
+  }
+
+  Future<bool> undoDelete() async {
+    final lastDeletedImage = ref.read(lastDeletedImageProvider);
+    if (lastDeletedImage == null) return false;
+    final saveRepository = ref.read(savedImagesRepositoryProvider);
+    await saveRepository.save(lastDeletedImage.label, lastDeletedImage.url).then((value) =>
+        refreshNewlySavedImage(value));
+    return true;
+  }
+
+  void refreshNewlySavedImage(SavedImage newImage) {
+    ref.read(newlyAddedImageProvider.notifier).state = newImage;
+    ref.refresh(savedImagesProvider);
   }
 }
