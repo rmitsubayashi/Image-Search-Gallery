@@ -38,6 +38,13 @@ class SqliteDataSource {
     return rows > 0;
   }
 
+  Future<bool> updateLabel(SavedImage image, String updatedLabel) async {
+    final db = await _getDB();
+    final row = {'label': updatedLabel};
+    final rows = await db.update('saved_image', row, where: 'id = ?', whereArgs: [image.id]);
+    return rows > 0;
+  }
+
   Future<List<SavedImage>> getSavedImages() async {
     final db = await _getDB();
     final maps = await db.query('saved_image');

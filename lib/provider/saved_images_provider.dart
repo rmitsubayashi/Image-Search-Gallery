@@ -44,4 +44,14 @@ class SavedImageNotifier extends StateNotifier<SavedImage?> {
     ref.refresh(savedImagesProvider);
     return result;
   }
+
+  Future<bool> rename(SavedImage image, String newLabel) async {
+    final result = await ref.read(savedImagesRepositoryProvider).updateLabel(image, newLabel);
+    final newlyAddedImage = ref.read(newlyAddedImageProvider);
+    if (newlyAddedImage?.id == image.id) {
+      ref.read(newlyAddedImageProvider.notifier).state = newlyAddedImage?.copyWith(label: newLabel);
+    }
+    ref.refresh(savedImagesProvider);
+    return result;
+  }
 }
