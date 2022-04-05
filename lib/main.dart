@@ -19,11 +19,12 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       title: "Image Search Gallery",
-        home: SavedImagesScreen(),
-        theme: ThemeData(
-          primaryColor: Colors.blueGrey,
-          primarySwatch: Colors.blueGrey,
-        ),
+      home: SavedImagesScreen(),
+      theme: ThemeData(
+        primaryColor: Colors.blueGrey,
+        primarySwatch: Colors.blueGrey,
+      ),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
