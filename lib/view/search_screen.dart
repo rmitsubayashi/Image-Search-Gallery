@@ -77,6 +77,7 @@ class SearchScreen extends HookConsumerWidget {
                             child: FadeInImage.memoryNetwork(
                               placeholder: kTransparentImage,
                               image: searchResult[index],
+                              imageErrorBuilder: (context, error, trace) { return const SizedBox.shrink(); },
                               fit: BoxFit.scaleDown,
                             )),
                         onTap: () {
