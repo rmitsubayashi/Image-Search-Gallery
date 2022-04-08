@@ -44,13 +44,11 @@ class SelectedSavedImageScreen extends HookConsumerWidget {
                 icon: const Icon(Icons.edit))
           ],
         ),
-        body: Hero(
-            tag: "tag_${selectedSavedImage.url}",
-            child: CachedNetworkImage(
+        body: CachedNetworkImage(
                 placeholder: (context, url) =>
                     const CircularProgressIndicator(color: Colors.black12),
                 imageUrl: selectedSavedImage.url,
-                fit: BoxFit.fitWidth)));
+                fit: BoxFit.fitWidth));
   }
 
   Future<void> openEditDialog(

@@ -29,15 +29,13 @@ class SavedImagesScreen extends HookConsumerWidget {
                   itemBuilder: (_, index) {
                     return Stack(children: [
                       Column(children: [
-                        Hero(
-                            tag: "tag_${images[index].url}",
-                            child: CachedNetworkImage(
+                        CachedNetworkImage(
                               placeholder: (context, url) =>
                                   const CircularProgressIndicator(
                                       color: Colors.black12),
                               imageUrl: images[index].url,
                               fit: BoxFit.scaleDown,
-                            )),
+                            ),
                         Text(images[index].label)
                       ]),
                       Positioned.fill(
