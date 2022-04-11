@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
@@ -51,39 +52,8 @@ class SavedImagesScreen extends HookConsumerWidget {
                                         builder: (context) =>
                                             SelectedSavedImageScreen()));
                               }, onLongPress: () {
-                                showMenu(
-                                    context: context,
-                                    // top right
-                                    position: const RelativeRect.fromLTRB(
-                                        0, 0, -1, 0),
-                                    items: <PopupMenuEntry>[
-                                      PopupMenuItem(
-                                        child: Row(
-                                          children: <Widget>[
-                                            Text(
-                                                "Delete '${images[index].label}'")
-                                          ],
-                                        ),
-                                        onTap: () async {
-                                          final savedImageNotifier = ref
-                                              .read(savedImageNotifierProvider);
-                                          final success =
-                                              await savedImageNotifier
-                                                  .delete(images[index]);
-                                          if (success) {
-                                            final snackBar = SnackBar(content: const Text("Deleted"),
-                                              action: SnackBarAction(label: "Undo", onPressed: () {
-                                                savedImageNotifier.undoDelete();
-                                                Fluttertoast.showToast(msg: "Undo!");
-                                              },),);
-                                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                          } else {
-                                            Fluttertoast.showToast(
-                                                msg: "Failed");
-                                          }
-                                        },
-                                      )
-                                    ]);
+                                Clipboard.setData(ClipboardData(text: images[index].label));
+                                Fluttertoast.showToast(msg: "Copied to clipboard");
                               })))
                     ]);
                   },
