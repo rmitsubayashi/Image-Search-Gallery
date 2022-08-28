@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:imagesearchgallery/provider/saved_images_provider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:imagesearchgallery/provider/search_provider.dart';
 import 'package:imagesearchgallery/provider/selected_saved_image_provider.dart';
 import 'package:imagesearchgallery/view/search_screen.dart';
 import 'package:imagesearchgallery/view/selected_saved_image_screen.dart';
@@ -17,6 +18,10 @@ class SavedImagesScreen extends HookConsumerWidget {
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () {
+            // so the Search screen can differentiate between adding and updating
+            ref.read(savedImageNotifierProvider).clearImageToUpdateUrl();
+            // clear previous search
+            ref.read(searchStateNotifier).search("");
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => SearchScreen()));
           },

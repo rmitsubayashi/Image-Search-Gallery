@@ -38,10 +38,10 @@ class SqliteDataSource {
     return rows > 0;
   }
 
-  Future<bool> updateLabel(SavedImage image, String updatedLabel) async {
+  Future<bool> update(SavedImage newImage) async {
     final db = await _getDB();
-    final row = {'label': updatedLabel};
-    final rows = await db.update('saved_image', row, where: 'id = ?', whereArgs: [image.id]);
+    final row = {'label': newImage.label, 'url': newImage.url};
+    final rows = await db.update('saved_image', row, where: 'id = ?', whereArgs: [newImage.id]);
     return rows > 0;
   }
 

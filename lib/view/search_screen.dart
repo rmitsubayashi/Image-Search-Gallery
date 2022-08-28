@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:imagesearchgallery/provider/saved_images_provider.dart';
 import 'package:imagesearchgallery/provider/search_provider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:imagesearchgallery/provider/select_search_result_provider.dart';
@@ -13,6 +14,7 @@ class SearchScreen extends HookConsumerWidget {
     final searchTerm = ref.watch(searchTermProvider);
     final searchLoadingState = ref.watch(searchLoadingStateProvider);
     final suggestedWord = ref.watch(suggestedWordProvider);
+    final imageToUpdate = ref.watch(imageToUpdateUrlProvider);
     final _textFieldController = TextEditingController(text: searchTerm);
     final _scrollController = ScrollController();
     _scrollController.addListener(() {
@@ -83,7 +85,7 @@ class SearchScreen extends HookConsumerWidget {
                         onTap: () {
                           ref.read(selectSearchResultStateNotifier).select(
                               SelectedSearchResult(
-                                  searchTerm: searchTerm,
+                                  searchTerm: imageToUpdate == null ? searchTerm : imageToUpdate.label,
                                   url: searchResult[index]));
                           Navigator.push(
                               context,

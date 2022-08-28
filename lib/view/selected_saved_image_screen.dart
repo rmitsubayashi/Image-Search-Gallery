@@ -4,7 +4,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:imagesearchgallery/entity/saved_image.dart';
 import 'package:imagesearchgallery/provider/saved_images_provider.dart';
+import 'package:imagesearchgallery/provider/search_provider.dart';
 import 'package:imagesearchgallery/provider/selected_saved_image_provider.dart';
+import 'package:imagesearchgallery/view/search_screen.dart';
 
 class SelectedSavedImageScreen extends HookConsumerWidget {
   @override
@@ -41,7 +43,19 @@ class SelectedSavedImageScreen extends HookConsumerWidget {
                 onPressed: () async {
                   openEditDialog(ref, context, selectedSavedImage);
                 },
-                icon: const Icon(Icons.edit))
+                icon: const Icon(Icons.edit)),
+            IconButton(
+              icon: const Icon(Icons.refresh),
+              onPressed: () {
+                final savedImageNotifier =
+                  ref.read(savedImageNotifierProvider);
+                savedImageNotifier.markImageToUpdateUrl(selectedSavedImage);
+                // prepopulate search screen
+                ref.read(searchStateNotifier).search(selectedSavedImage.label);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SearchScreen()));
+              },
+            )
           ],
         ),
         body: CachedNetworkImage(

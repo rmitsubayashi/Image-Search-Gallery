@@ -12,6 +12,8 @@ abstract class SavedImageRepository {
   Future<bool> delete(SavedImage image);
 
   Future<bool> updateLabel(SavedImage image, String updatedLabel);
+
+  Future<bool> updateUrl(SavedImage image, String updatedUrl);
 }
 
 class SqliteSavedImageRepository implements SavedImageRepository {
@@ -42,7 +44,15 @@ class SqliteSavedImageRepository implements SavedImageRepository {
   @override
   Future<bool> updateLabel(SavedImage image, String newLabel) async {
     final sqliteDataSource = read(sqliteDataSourceProvider);
-    return await sqliteDataSource.updateLabel(image, newLabel);
+    final newImage = image.copyWith(label: newLabel);
+    return await sqliteDataSource.update(newImage);
+  }
+
+  @override
+  Future<bool> updateUrl(SavedImage image, String newUrl) async {
+    final sqliteDataSource = read(sqliteDataSourceProvider);
+    final newImage = image.copyWith(url: newUrl);
+    return await sqliteDataSource.update(newImage);
   }
 }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:imagesearchgallery/provider/saved_images_provider.dart';
 import 'package:imagesearchgallery/provider/select_search_result_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -16,6 +17,7 @@ class SelectedSearchResultScreen extends HookConsumerWidget {
     }
     final textFieldController = TextEditingController(text: selectedSearchResult.searchTerm);
     final fabEnabled = ref.watch(_saveFabEnabledProvider);
+    final imageToUpdate = ref.watch(imageToUpdateUrlProvider);
     return Scaffold(
       appBar: AppBar(title: const Text("Save")),
       floatingActionButton: FloatingActionButton(
@@ -28,12 +30,17 @@ class SelectedSearchResultScreen extends HookConsumerWidget {
           ref.read(_saveFabEnabledProvider.notifier).state = false;
           var readWriteStatus = Permission.storage;
           if (await readWriteStatus.request().isGranted) {
-            ref.read(selectSearchResultStateNotifier).select(
-                SelectedSearchResult(searchTerm: textFieldController.value.text,
-                    url: selectedSearchResult.url)
-            );
-            final success = await ref.read(selectSearchResultStateNotifier)
-                .saveCurrentlySelectedSearchResult();
+            if (imageToUpdate != null) {
+              ref.read(selectSearchResultStateNotifier).select(
+                  SelectedSearchResult(
+                      searchTerm: textFieldController.value.text,
+                      url: selectedSearchResult.url)
+              );
+            }
+            final success = imageToUpdate == null ?
+              await ref.read(selectSearchResultStateNotifier)
+                  .saveCurrentlySelectedSearchResult(
+              ) : await ref.read(savedImageNotifierProvider).updateUrl(selectedSearchResult.url);
 
             if (success) {
               Fluttertoast.showToast(msg: "Saved");
@@ -55,6 +62,7 @@ class SelectedSearchResultScreen extends HookConsumerWidget {
                 border: InputBorder.none
               ),
               autofocus: true,
+              enabled: imageToUpdate == null,
             ),
           ),
           Hero(

@@ -29,6 +29,8 @@ final newlyAddedImageProvider = StateProvider<SavedImage?>((ref) => null);
 
 final lastDeletedImageProvider = StateProvider<SavedImage?>((ref) => null);
 
+final imageToUpdateUrlProvider = StateProvider<SavedImage?>((ref) => null);
+
 final savedImageNotifierProvider = Provider.autoDispose((ref) => SavedImageNotifier(ref));
 
 class SavedImageNotifier extends StateNotifier<SavedImage?> {
@@ -70,5 +72,27 @@ class SavedImageNotifier extends StateNotifier<SavedImage?> {
   void refreshNewlySavedImage(SavedImage newImage) {
     ref.read(newlyAddedImageProvider.notifier).state = newImage;
     ref.refresh(savedImagesProvider);
+  }
+
+  void markImageToUpdateUrl(SavedImage image) {
+    ref.read(imageToUpdateUrlProvider.notifier).state = image;
+  }
+
+  void clearImageToUpdateUrl() {
+    ref.read(imageToUpdateUrlProvider.notifier).state = null;
+  }
+
+  Future<bool> updateUrl(String newUrl) async {
+    final markedImage = ref.read(imageToUpdateUrlProvider);
+    if (markedImage == null) return false;
+    ref.read(savedImagesRepositoryProvider).updateUrl(markedImage, newUrl);
+    await CachedNetworkImage.evictFromCache(markedImage.url);
+    ref.read(imageToUpdateUrlProvider.notifier).state = null;
+    final newlyAddedImage = ref.read(newlyAddedImageProvider);
+    if (newlyAddedImage?.id == markedImage.id) {
+      ref.read(newlyAddedImageProvider.notifier).state = newlyAddedImage?.copyWith(url: newUrl);
+    }
+    ref.refresh(savedImagesProvider);
+    return true;
   }
 }
