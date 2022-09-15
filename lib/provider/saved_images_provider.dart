@@ -2,13 +2,27 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:imagesearchgallery/entity/saved_image.dart';
+import 'package:imagesearchgallery/entity/sort_order.dart';
 import 'package:imagesearchgallery/repository/saved_images_repository.dart';
+import 'package:imagesearchgallery/repository/settings_repository.dart';
 
 
 final filteredImagesProvider = FutureProvider<List<SavedImage>>((ref) async {
   final originalList = await ref.watch(savedImagesProvider.future);
+  final sortOrder = await ref.watch(sortOrderProvider.future);
   final listCopy = List<SavedImage>.from(originalList);
-  listCopy.sort((imageA, imageB) => imageA.label.compareTo(imageB.label));
+  switch (sortOrder) {
+    case SortOrder.alphabetical: 
+      listCopy.sort((imageA, imageB) => imageA.label.compareTo(imageB.label));
+      break;
+    case SortOrder.recentlyAdded: 
+      listCopy.sort((imageA, imageB) => imageA.createdAt.compareTo(imageB.createdAt));
+      break;
+    case SortOrder.random: 
+      listCopy.shuffle();
+      break;
+  }
+  
   final newlyAddedImage = ref.watch(newlyAddedImageProvider);
 
   if (newlyAddedImage == null) {
@@ -23,6 +37,10 @@ final filteredImagesProvider = FutureProvider<List<SavedImage>>((ref) async {
 
 final savedImagesProvider = FutureProvider<List<SavedImage>>((ref) async {
   return await ref.read(savedImagesRepositoryProvider).getAll();
+});
+
+final sortOrderProvider = FutureProvider<SortOrder>((ref) async {
+  return await ref.read(settingsRepositoryProvider).getSortOrder() ?? SortOrder.alphabetical;
 });
 
 final newlyAddedImageProvider = StateProvider<SavedImage?>((ref) => null);
@@ -93,6 +111,21 @@ class SavedImageNotifier extends StateNotifier<SavedImage?> {
       ref.read(newlyAddedImageProvider.notifier).state = newlyAddedImage?.copyWith(url: newUrl);
     }
     ref.refresh(savedImagesProvider);
+    return true;
+  }
+}
+
+final sortOrderNotifierProvider = Provider.autoDispose((ref) => SortOrderNotifier(ref));
+
+class SortOrderNotifier extends StateNotifier<SortOrder?> {
+  SortOrderNotifier(this.ref): super(null);
+
+  final Ref ref;
+  
+  Future<bool> updateSortOrder(SortOrder newOrder) async {
+    final result = await ref.read(settingsRepositoryProvider).setSortOrder(newOrder);
+    if (!result) return false;
+    ref.refresh(sortOrderProvider);
     return true;
   }
 }
