@@ -16,7 +16,7 @@ final filteredImagesProvider = FutureProvider<List<SavedImage>>((ref) async {
       listCopy.sort((imageA, imageB) => imageA.label.compareTo(imageB.label));
       break;
     case SortOrder.recentlyAdded: 
-      listCopy.sort((imageA, imageB) => imageA.createdAt.compareTo(imageB.createdAt));
+      listCopy.sort((imageA, imageB) => imageB.createdAt.compareTo(imageA.createdAt));
       break;
     case SortOrder.random: 
       listCopy.shuffle();
