@@ -45,16 +45,26 @@ class SavedImagesScreen extends HookConsumerWidget {
                   itemCount: images.length,
                   itemBuilder: (_, index) {
                     return Stack(children: [
-                      Column(children: [
-                        CachedNetworkImage(
-                          placeholder: (context, url) =>
-                              const CircularProgressIndicator(
-                                  color: Colors.black12),
-                          imageUrl: images[index].url,
-                          fit: BoxFit.scaleDown,
-                        ),
-                        Text(images[index].label)
-                      ]),
+                      Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          CachedNetworkImage(
+                            placeholder: (context, url) =>
+                                const CircularProgressIndicator(
+                                    color: Colors.black12),
+                            imageUrl: images[index].url,
+                            fit: BoxFit.scaleDown,
+                          ),
+                          Container(
+                            width: double.infinity,
+                            color: const Color.fromARGB(150, 0, 0, 0),
+                            padding: const EdgeInsets.all(10),
+                            child: Text(images[index].label,
+                              style: const TextStyle(color: Colors.white)
+                            )
+                          )
+                        ]
+                      ),
                       Positioned.fill(
                           child: Material(
                               color: Colors.transparent,
@@ -77,7 +87,7 @@ class SavedImagesScreen extends HookConsumerWidget {
                   },
                   staggeredTileBuilder: (int index) =>
                       const StaggeredTile.fit(2),
-                  mainAxisSpacing: 8,
+                  mainAxisSpacing: 0,
                   crossAxisSpacing: 0,
                 )));
   }
